@@ -1,6 +1,7 @@
 package br.com.spring_unit_testing.service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
@@ -41,6 +42,13 @@ public class PersonServices {
     public Person create(Person person) {
 
         logger.info("Creating one person!");
+
+        Optional<Person> savedPerson = repository.findByEmail(person.getEmail());
+        if(savedPerson.isPresent()){
+            throw new ResourceNotFoundException(
+                    "This person cannot be created, this email alredy exists -> " +
+                            person.getEmail());
+        }
 
         return repository.save(person);
     }
