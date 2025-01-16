@@ -1,10 +1,12 @@
 package br.com.spring_unit_testing.repository;
 
+import br.com.spring_unit_testing.integrationtests.testconteiners.AbstractIntegrationTest;
 import br.com.spring_unit_testing.model.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
@@ -13,7 +15,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-public class PersonRepositoryTest {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class PersonRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
     private PersonRepository personRepository;
